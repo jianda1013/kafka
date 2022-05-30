@@ -5,18 +5,16 @@ networks:
     driver: bridge
 
 services:
-  mysql:
+  producer:
     restart: always
-    image: mariadb:10.5
-    container_name: mysql
+    container_name: producer
+    build: .
     env_file:
-      - .env.mysql
+      - .env
     volumes:
-      - "./db_data:/var/lib/mysql"
+      - "./src/producer/:/usr/src/app/producer"
     networks:
-      project:
-        aliases:
-          - "mysql"
+      - project
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1

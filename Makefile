@@ -1,6 +1,7 @@
 DC=docker-compose
 CN=broker
 TP=kafka-topics
+PR=producer
 
 all:start
 
@@ -16,6 +17,8 @@ clean: ## Stop and delete the project stack
 	$(DC) down
 logs: ## Attach to standard output of containers (to see logs)
 	$(DC) -f docker-compose.yml logs -f $(CN)
+producer:
+	$(DC) -f docker-compose.yml logs -f $(PR)
 
 re: clean start
 
