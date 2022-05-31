@@ -12,20 +12,12 @@ let self = module.exports = {
     async start() {
         if (client.readyState() === "OPEN")
             return `Client Is Already Running`;
-        let channels = await subscribe.getChannel().catch(err => { return Promise.reject(err) })
+        let channels = await subscribe.getData().catch(err => { return Promise.reject(err) })
         for (const item of channels)
             client.getChannels().push(item)
-        await kafka.createTopic(channels.map(item => item.substring(1)));
+        await kafka.createTopic(channels);
         await self.run().catch(err => { return Promise.reject(err) })
         return `Producer Listening Channels From ${channels}`
-    },
-
-    async new_channel(channel_name) {
-        if (client.readyState() === "OPEN") {
-            await client.join(channel_name)
-            return `Join Channel ${channel_name}`;
-        }
-        else return `Client Not Listening`
     },
 
     async run() {
@@ -36,10 +28,26 @@ let self = module.exports = {
         });
     },
 
+    async newChannel(channel) {
+        if (client.readyState() !== "OPEN")
+            return `Client Not Listening`
+        if (client.getChannels().includes(channel))
+            return `Channel Already Listening`
+        await kafka.createTopic(channel);
+        await client.join(`#${channel}`)
+        return `Join Channel ${channel}`;
+    },
+
+    async listChannel() {
+        if (client.readyState() !== "OPEN")
+            return `Client Not Listening`
+        return client.getChannels().map(item => item.substring(1))
+    },
+
     async disconnect() {
-        if (client.readyState() === "OPEN") {
-            await client.disconnect().catch(err => { return Promise.reject(err) });
-            return `Server Closed`
-        } else return `Server Is Not Running`
+        if (client.readyState() !== "OPEN")
+            return `Server Is Not Running`
+        await client.disconnect().catch(err => { return Promise.reject(err) });
+        return `Server Closed`
     }
 }

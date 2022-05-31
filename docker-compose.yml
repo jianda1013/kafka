@@ -9,10 +9,12 @@ services:
     restart: always
     container_name: producer
     build: .
+    ports:
+      - "${PORT}:${PORT}"
     env_file:
       - .env
     volumes:
-      - "./src/producer/:/usr/src/app/producer"
+      - "./src/:/usr/src/app/producer"
     networks:
       - project
 

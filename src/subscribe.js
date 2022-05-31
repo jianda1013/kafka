@@ -19,7 +19,7 @@ let self = module.exports = {
         })
     },
 
-    async getChannel() {
+    async getData() {
         let datas = await self.readFile().catch(err => { return Promise.reject(err) })
         let channels = [];
         for (let item of Object.values(datas))
@@ -28,11 +28,12 @@ let self = module.exports = {
         return channels;
     },
 
-    async newChannel(user, channel) {
+    async newData(user, channel) {
         let datas = await self.readFile().catch(err => { return Promise.reject(err) })
         datas[user] = datas[user] ?
             [channel] : datas[user].includes(channel) ?
                 datas[user] : [...datas[user], channel]
         await self.writeData(datas).catch(err => { return Promise.reject(err) })
+        return `Data Created`;
     }
 }

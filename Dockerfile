@@ -10,4 +10,4 @@ COPY ./package* ./
 
 RUN npm install -i
 
-CMD ["sleep", "infinity"]
+CMD ["npm", "start"]
