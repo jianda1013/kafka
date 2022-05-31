@@ -13,4 +13,9 @@ const channelRequest = Joi.object({
     channel: Joi.string().regex(/^[a-zA-Z0-9][\w]{2,24}$/).required()
 })
 
-module.exports = { adminRequest, userRequest, channelRequest }
+const topicRequest = Joi.object({
+    username: Joi.string().required().equal(process.env.admin || "admin"),
+    topic: Joi.string().regex(/^[a-zA-Z0-9][\w]{2,24}$/).required()
+})
+
+module.exports = { adminRequest, userRequest, channelRequest, topicRequest }

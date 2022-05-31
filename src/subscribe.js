@@ -1,9 +1,12 @@
 const fs = require('fs');
 
+let path = __dirname.split('/').pop().toString();
+path = __dirname.substring(0, __dirname.length - path.length - 1)
+
 let self = module.exports = {
     readFile() {
         return new Promise((resolve, reject) => {
-            fs.readFile(`${__dirname}/channel.json`, (err, data) => {
+            fs.readFile(`${path}/channel.json`, (err, data) => {
                 if (err) reject(err)
                 else resolve(JSON.parse(data))
             })
@@ -12,7 +15,7 @@ let self = module.exports = {
 
     writeData(data) {
         return new Promise((resolve, reject) => {
-            fs.writeFile(`${__dirname}/channel.json`, JSON.stringify(data), (err) => {
+            fs.writeFile(`${path}/channel.json`, JSON.stringify(data, null, "\t"), (err) => {
                 if (err) reject(err)
                 else resolve(true)
             })
@@ -30,7 +33,7 @@ let self = module.exports = {
 
     async newData(user, channel) {
         let datas = await self.readFile().catch(err => { return Promise.reject(err) })
-        datas[user] = datas[user] ?
+        datas[user] = !datas[user] ?
             [channel] : datas[user].includes(channel) ?
                 datas[user] : [...datas[user], channel]
         await self.writeData(datas).catch(err => { return Promise.reject(err) })

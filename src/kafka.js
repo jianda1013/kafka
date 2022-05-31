@@ -1,8 +1,13 @@
-const { Kafka } = require('kafkajs')
+const { Kafka, logLevel } = require('kafkajs')
 
 const kafka = new Kafka({
     clientId: 'twitch-service',
-    brokers: ['broker:29092']
+    brokers: ['broker:29092'],
+    logLevel: logLevel.NOTHING,
+    enforceRequestTimeout: false,
+    retry: {
+        initialRetryTime: 5000
+    }
 })
 
 const admin = kafka.admin();
