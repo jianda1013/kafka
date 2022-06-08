@@ -15,5 +15,4 @@ RUN rm punkt.py
 
 RUN gdown https://drive.google.com/uc?id=1eGAsTN1HBpJAkeVM57_C7ccp7hbgSz3_
 
-# CMD ["python", "consumer/flask_livereload/run.py"]
-CMD ["sleep", "infinity"]
+CMD ["python", "consumer/main.py"]
