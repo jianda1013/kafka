@@ -19,6 +19,21 @@ services:
     networks:
       - project
 
+  consumer:
+    restart: always
+    container_name: consumer
+    build:
+      context: ./consumer
+      dockerfile: .
+    ports:
+      - "5545:5545"
+    env_file:
+      - .env
+    volumes:
+      - "./consumer:/usr/src/app/consumer"
+    networks:
+      - project
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
     container_name: zookeeper

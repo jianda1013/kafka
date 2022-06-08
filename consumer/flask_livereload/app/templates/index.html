@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Home</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../static/assets/css/main.css" />
+	<script src="{{ url_for('static', filename='js/channel.js') }}"></script>
+</head>
+
+<body class="is-preload" onload="setChannel()">
+	<div id="wrapper">
+		<header id="header">
+			<div class="logo">
+				<span class="icon fa-gem"></span>
+			</div>
+			<div class="content">
+				<div class="inner">
+					<h1>2022 Distributed System Final Project</h1>
+					<p>第九組</p>
+				</div>
+			</div>
+			<nav>
+				<ul id="channelHeaders"> </ul>
+			</nav>
+		</header>
+		<div id="main"> </div>
+		<footer id="footer">
+			<p class="copyright">&copy; National Chengchi University (NCCU)</p>
+		</footer>
+
+	</div>
+	<div id="bg"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+	<script src="../static/assets/js/breakpoints.min.js"></script>
+</body>
+
+</html>

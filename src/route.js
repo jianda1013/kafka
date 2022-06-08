@@ -1,5 +1,6 @@
 const Express = require('express');
-var Morgan = require('morgan')
+var Morgan = require('morgan');
+var cors = require('cors');
 const app = Express();
 const { adminRequest, userRequest, channelRequest, topicRequest } = require('./validate');
 const twitch = require('./twitch');
@@ -8,6 +9,7 @@ const subscribe = require('./subscribe');
 
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use(Morgan(':method :url :status'))
 
