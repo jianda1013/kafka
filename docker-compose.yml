@@ -8,14 +8,18 @@ services:
   producer:
     restart: always
     container_name: producer
-    build: .
+    build: 
+      context: ./producer
+      dockerfile: .
+      args:
+        - DEFAULT_PATH=${DEFAULT_PATH}
     ports:
-      - "${PORT}:${PORT}"
+      - "${PRODUCER_PORT}:${PRODUCER_PORT}"
     env_file:
       - .env
     volumes:
       - "./channel.json:/usr/src/app/channel.json"
-      - "./src/:/usr/src/app/producer"
+      - "./producer/:/usr/src/app/producer"
     networks:
       - project
 
@@ -25,8 +29,10 @@ services:
     build:
       context: ./consumer
       dockerfile: .
+      args:
+        - DEFAULT_PATH=${DEFAULT_PATH}
     ports:
-      - "5545:5545"
+      - "${CONSUMER_PORT}:${CONSUMER_PORT}"
     env_file:
       - .env
     volumes:

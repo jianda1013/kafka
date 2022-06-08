@@ -5,8 +5,8 @@ async function start() {
     console.log(`Kafka Connect Successfully`);
     await require('./twitch').start().catch(err => { console.log(err); return Promise.reject(err) });
     console.log(`Twitch API Connect Successfully`)
-    require('./route').listen((process.env.port || 1337), () => {
-        console.log(`Server Listening At Port ${process.env.port || 1337}`);
+    require('./route').listen((process.env.PRODUCER_PORT || 1337), () => {
+        console.log(`Server Listening At Port ${process.env.PRODUCER_PORT || 1337}`);
     })
 }
 

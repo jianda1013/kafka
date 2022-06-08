@@ -37,7 +37,7 @@ function getChannelHTML(channels) {
     for (const channel of channels) {
         body += `<article id="${channel}">
             <h2 class="major">${channel}</h2>
-            <span class="image main"><img src="./static/${channel}_WC.png" width="700"></span>
+            <span class="image main"><img src="./static/images/${channel}_WC.png" width="700"></span>
             <a href="https://www.twitch.tv/${channel}">https://www.twitch.tv/${channel}</a>
             <p>${all}</p>
         </article>`

@@ -2,6 +2,10 @@ from kafka import KafkaConsumer
 from wordcloud import WordCloud
 import nltk
 import time
+from os import environ
+
+PATH = environ.get('DEFAULT_PATH')
+BROKER = environ.get('BROKER_HOST')
 
 def listToString(s): 
     str1 = ""  
@@ -18,17 +22,17 @@ def msgToPic(msg, world_cloud, channel):
     except Exception as e:
         print('nltk error accur : ', e)
     try:
-        cloud = WordCloud(font_path='../../TaipeiSansTCBeta-Regular.ttf').generate(text)
+        cloud = WordCloud(font_path=PATH + '/TaipeiSansTCBeta-Regular.ttf').generate(text)
     except Exception as e:
         print('workCloud error accur : ', e)
     try:
-        cloud.to_file("../flask_livereload/app/static/" + channel + "_WC.png")
+        cloud.to_file(PATH + "/consumer/static/images/" + channel + "_WC.png")
     except Exception as e:
         print('fileGen error accur : ', e)
 
 
 def createPic(channel):
-    consumer = KafkaConsumer(channel, client_id= 'reciever', bootstrap_servers= ['broker:29092'])
+    consumer = KafkaConsumer(channel, client_id= 'reciever', bootstrap_servers= [BROKER])
     world_cloud = []
     while True:
         msg = consumer.poll(timeout_ms=10) #從kafka獲取數據
@@ -36,8 +40,8 @@ def createPic(channel):
             msg = list(msg.values())# 解析數據為list
             for i in range(len(msg)):
                 msgToPic(msg[i], world_cloud, channel)
-        # time.sleep(10) # 10sec refresh
+        time.sleep(10) # 10sec refresh
 
 if __name__ == "__main__":
-    createPic('zrush')
+    createPic('never_loses')
     
