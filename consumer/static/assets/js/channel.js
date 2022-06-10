@@ -31,15 +31,12 @@ const contact = `
 
 
 function getChannelHTML(channels) {
-    let body = '', headers = '', all = '';
-    for (const channel of channels)
-        all += `<a href="#${channel}">${channel}</a>`
+    let body = '', headers = '';
     for (const channel of channels) {
         body += `<article id="${channel}">
             <h2 class="major">${channel}</h2>
             <span class="image main"><img src="./static/images/${channel}_WC.png" width="700"></span>
             <a href="https://www.twitch.tv/${channel}">https://www.twitch.tv/${channel}</a>
-            <p>${all}</p>
         </article>`
         headers += `<li><a href="#${channel}">${channel}</a></li>`
     }

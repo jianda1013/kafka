@@ -10,6 +10,7 @@ build: ## Build the project stack
 	$(DC) build
 start: ## Build and launch the project in background
 	@echo "Launch dettached projet and build\n"
+	mkdir consumer/static/images
 	$(DC) up -d --build
 stop: ## Stop the project stack
 	$(DC) stop
